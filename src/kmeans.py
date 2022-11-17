@@ -39,11 +39,11 @@ def init_clusters_advanced(examples, K):
     """ Implement K-means ++ algorithm
     """
     clusters = torch.unbind(examples, dim=0)
-    clusters = random.sample(clusters, k=1)
-    for k in range(2,K+1):
+    for k in range(1,K+1):
+        clusters = random.sample(clusters, k=k)
+        clusters = torch.stack(clusters, dim=0)
         distances = compute_distance(examples, k)
         print(f'distances.shape : {distances.shape}')
-        return
         cluster_ids = find_nearest_cluster(distances)
     # Fill this
     print("hello")

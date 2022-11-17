@@ -23,7 +23,6 @@ def load_fashionmnist(root):
     return examples, targets
 
 def main(args):
-    # print("실행중?")
     examples, targets = load_fashionmnist(args.root)
     acc_list = []
     # print(f'type(examples) : {type(examples)}')
