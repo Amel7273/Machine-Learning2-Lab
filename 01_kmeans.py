@@ -17,19 +17,20 @@ def load_fashionmnist(root):
     dataset = FashionMNIST(root=root, train=True, download=True)
     examples, targets = dataset.data, dataset.targets
     examples = examples.float()
-    examples = rearrange(examples, 'n h w -> n 1 h w')
+    examples = rearrange(examples, 'n h w -> n 1 h w') 
     examples = normalize(examples, mean=(0.5,), std=(0.25,))
-    examples = rearrange(examples, 'n 1 h w -> n (1 h w)')
+    examples = rearrange(examples, 'n 1 h w -> n (1 h w)') 
     return examples, targets
 
 def main(args):
+    load_fashionmnist(args.root)
     examples, targets = load_fashionmnist(args.root)
     acc_list = []
     # print(f'type(examples) : {type(examples)}')
     # print(f'examples.shape : {examples.shape}') # torch.Size([60000, 784])
     # print(f'targets.shape : {targets.shape}') # torch.Size([60000])
     for _ in range(args.num_trials):
-        _, predictions = kmeans(examples, args.num_clusters, args.num_iterations)
+        _, predictions = kmeans(examples, args.num_clusters, args.num_iterations) # (tensor) [60000]
         accuracy = clustering_accuracy(predictions, targets, args.num_clusters)
         print(f'K: {args.num_clusters}, Acc.: {accuracy:.4f}')
         acc_list.append(accuracy)
